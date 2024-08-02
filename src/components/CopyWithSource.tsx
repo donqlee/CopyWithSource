@@ -1,8 +1,15 @@
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useState } from "react";
 import { ICopyWithSourceProps } from "../types/CopyWithSource";
+import styles from "../styles/CopyWithSource.module.css";
 
 const CopyWithSource = (props: ICopyWithSourceProps) => {
-  const { children, sourceText } = props;
+  const {
+    children,
+    sourceText,
+    showNotification = false,
+    notificationDuration = 3000,
+  } = props;
+  const [isNotificationVisible, setIsNotificationVisible] = useState(false);
 
   const handleCopy = useCallback(
     (event: ClipboardEvent) => {
@@ -13,9 +20,17 @@ const CopyWithSource = (props: ICopyWithSourceProps) => {
         event.preventDefault();
         const newText = `${selectedText}\n\n${sourceText}`;
         event.clipboardData?.setData("text/plain", newText);
+
+        if (showNotification) {
+          setIsNotificationVisible(true);
+          setTimeout(
+            () => setIsNotificationVisible(false),
+            notificationDuration
+          );
+        }
       }
     },
-    [sourceText]
+    [sourceText, showNotification, notificationDuration]
   );
 
   useEffect(() => {
@@ -25,7 +40,16 @@ const CopyWithSource = (props: ICopyWithSourceProps) => {
     };
   }, [handleCopy]);
 
-  return <div>{children}</div>;
+  return (
+    <div>
+      {children}
+      {isNotificationVisible && (
+        <div className={`${styles.notification} ${styles.notificationVisible}`}>
+          텍스트가 복사되었습니다.
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default CopyWithSource;
