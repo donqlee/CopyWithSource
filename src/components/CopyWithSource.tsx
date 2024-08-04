@@ -8,6 +8,7 @@ const CopyWithSource = (props: ICopyWithSourceProps) => {
     sourceText,
     showNotification = false,
     notificationDuration = 3000,
+    notificationMessage = "텍스트가 복사되었습니다.",
   } = props;
   const [isNotificationVisible, setIsNotificationVisible] = useState(false);
 
@@ -45,7 +46,7 @@ const CopyWithSource = (props: ICopyWithSourceProps) => {
       {children}
       {isNotificationVisible && (
         <div className={`${styles.notification} ${styles.notificationVisible}`}>
-          텍스트가 복사되었습니다.
+          {notificationMessage}
         </div>
       )}
     </div>
