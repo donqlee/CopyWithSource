@@ -34,7 +34,7 @@ function App() {
 
 | Prop                   | 타입    | 기본값                     | 설명                             |
 | ---------------------- | ------- | -------------------------- | -------------------------------- |
-| `sourceText`           | string  | 필수                       | 복사된 텍스트에 추가될 출처 정보 |
+| `sourceText`           | string  | 츨처: 현재 페이지 URL      | 복사된 텍스트에 추가될 출처 정보 |
 | `showNotification`     | boolean | false                      | 복사 완료 시 알림 표시 여부      |
 | `notificationDuration` | number  | 3000                       | 알림 표시 지속 시간 (밀리초)     |
 | `notificationMessage`  | string  | '텍스트가 복사되었습니다.' | 복사 완료 시 표시될 알림 메시지  |
