@@ -5,12 +5,19 @@ import styles from "../styles/CopyWithSource.module.css";
 const CopyWithSource = (props: ICopyWithSourceProps) => {
   const {
     children,
-    sourceText,
+    sourceText: propSourceText,
     showNotification = false,
     notificationDuration = 3000,
     notificationMessage = "텍스트가 복사되었습니다.",
   } = props;
   const [isNotificationVisible, setIsNotificationVisible] = useState(false);
+  const [sourceText, setSourceText] = useState(propSourceText || "");
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && !propSourceText) {
+      setSourceText(`출처: ${window.location.href}`);
+    }
+  }, [propSourceText]);
 
   const handleCopy = useCallback(
     (event: ClipboardEvent) => {
