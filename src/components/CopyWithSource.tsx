@@ -9,6 +9,7 @@ const CopyWithSource = (props: ICopyWithSourceProps) => {
     showNotification = false,
     notificationDuration = 3000,
     notificationMessage = "텍스트가 복사되었습니다.",
+    enabled = true,
   } = props;
   const [isNotificationVisible, setIsNotificationVisible] = useState(false);
   const [sourceText, setSourceText] = useState(propSourceText || "");
@@ -21,6 +22,7 @@ const CopyWithSource = (props: ICopyWithSourceProps) => {
 
   const handleCopy = useCallback(
     (event: ClipboardEvent) => {
+      if (!enabled) return;
       const selection = document.getSelection();
       const selectedText = selection?.toString();
 
@@ -38,15 +40,17 @@ const CopyWithSource = (props: ICopyWithSourceProps) => {
         }
       }
     },
-    [sourceText, showNotification, notificationDuration]
+    [sourceText, showNotification, notificationDuration, enabled]
   );
 
   useEffect(() => {
-    document.addEventListener("copy", handleCopy);
-    return () => {
-      document.removeEventListener("copy", handleCopy);
-    };
-  }, [handleCopy]);
+    if (enabled) {
+      document.addEventListener("copy", handleCopy);
+      return () => {
+        document.removeEventListener("copy", handleCopy);
+      };
+    }
+  }, [handleCopy, enabled]);
 
   return (
     <div>

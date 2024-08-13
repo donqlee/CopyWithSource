@@ -6,4 +6,5 @@ export interface ICopyWithSourceProps {
   showNotification?: boolean;
   notificationDuration?: number;
   notificationMessage?: string;
+  enabled?: boolean;
 }
