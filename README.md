@@ -4,11 +4,10 @@ copy-with-source는 React 애플리케이션에서 텍스트를 복사할 때 �
 
 ## 특징
 
-- 선택된 텍스트 복사 시 자동으로 출처 정보 추가
-- 사용자 정의 가능한 출처 텍스트
-- 복사 알림 기능 (선택 사항)
-- TypeScript로 작성되어 타입 안정성 제공
-- Vite를 사용한 빠른 개발 환경
+- 선택된 텍스트를 복사할 때 자동으로 출처를 추가합니다.
+- 복사 완료 시 사용자 정의 가능한 알림을 표시합니다. (선택 사항)
+- 출처 텍스트를 직접 지정하거나, 지정하지 않으면 현재 페이지 URL을 자동으로 사용합니다.
+- 컴포넌트의 기능을 쉽게 켜고 끌 수 있습니다.
 
 ## 설치
 
@@ -23,8 +22,14 @@ import { CopyWithSource } from "copy-with-source";
 
 function App() {
   return (
-    <CopyWithSource sourceText="출처: example.com" showNotification={true}>
-      <p>이 텍스트를 복사해보세요. 출처 정보가 자동으로 추가됩니다.</p>
+    <CopyWithSource
+      sourceText="https://example.com"
+      showNotification={true}
+      notificationDuration={3000}
+      notificationMessage="텍스트가 복사되었습니다."
+      enabled={true}
+    >
+      <p>이 텍스트를 복사하면 출처가 자동으로 추가됩니다.</p>
     </CopyWithSource>
   );
 }
@@ -38,6 +43,7 @@ function App() {
 | `showNotification`     | boolean | false                      | 복사 완료 시 알림 표시 여부      |
 | `notificationDuration` | number  | 3000                       | 알림 표시 지속 시간 (밀리초)     |
 | `notificationMessage`  | string  | '텍스트가 복사되었습니다.' | 복사 완료 시 표시될 알림 메시지  |
+| `enabled`              | boolean | true                       | 컴포넌트의 기능 활성화 여부      |
 
 ## 라이선스
 
